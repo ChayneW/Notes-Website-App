@@ -17,7 +17,6 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY') 
 Bootstrap(app)
 
-
 uri = os.environ.get('DATABASE_URL')
 if uri.startswith("postgres://"):
     uri = uri.replace("postgres://", "postgresql://", 1)
@@ -34,7 +33,6 @@ class LoginForm(FlaskForm):
     name = StringField('Your Name:', validators=[DataRequired()])
     password = PasswordField('Enter your password:', validators=[DataRequired()])
     login = SubmitField('Login')
-
 
 
 #SQL DB user object:
@@ -63,39 +61,29 @@ class Note(db.Model):
     text = db.Column(db.Text, nullable=False)
     date = db.Column(db.String(250), nullable=False)
 
+''' DB creation:'''
 # db.create_all()
 
 # Create User and tester accts and hashing:
-master_password = 'testtesttest'
-master_password_hashed_salted = generate_password_hash(master_password, method='pbkdf2:sha256', salt_length=8)
+# master_password = 
+# master_password_hashed_salted = generate_password_hash(master_password, method='pbkdf2:sha256', salt_length=8)
 # print(master_password_hashed_salted)
 
-tester_password = 'testtest'
-tester_password_hashed_salted = generate_password_hash(tester_password, method='pbkdf2:sha256', salt_length=8)
+# tester_password = 'testtest'
+# tester_password_hashed_salted = generate_password_hash(tester_password, method='pbkdf2:sha256', salt_length=8)
 # print(tester_password_hashed_salted)
 
-# m_t_password = 'testtesttest'
-# t_t_password = 'testtest'
+
 # password_decode = check_password_hash(master_password_hashed_salted, password)
 
+''' Manual command to insert Admin and Tester.'''
 # first_user = User(name='chayne', password=master_password_hashed_salted)
 # test_user = User(name='test', password=tester_password_hashed_salted)
 
 # db.session.add(first_user)
 # db.session.add(test_user)
 
-# NOTES INSERT DB:
- 
-# tester_string = 'this is a test note for "test" profile.'
-# admin_string = 'this is a test note for "admin" profile.'
-# test_note = Note(text=tester_string, date=date.today().strftime("%B %d, %Y"))
-# admin_note = Note(text=admin_string, date=date.today().strftime("%B %d, %Y"))
-
-# db.session.add(test_note)
-# db.session.add(admin_note)
-
 # db.session.commit()
-
 
 
 ''' Add flask_login initializer and info:
@@ -130,17 +118,16 @@ def load_user(user_id):
     print(f"in @load_user() -> tapping into db to search for user:\nuser id: {user.id}, user: {user.name}")
     return user
 
-
+'''Code to retrieve all pictures from img folder:'''
 img_bank = (os.listdir('./static/img'))
 
-# with open('static/img') as img_bank:
-#     print(img_bank)
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    
-    print(current_user)
+    # Data Check:
+    # print(current_user)
 
+    # Img random choice:
     img_rand_choice = random.choice(img_bank)
     print(img_rand_choice)
 
@@ -154,16 +141,16 @@ def home():
         print(note_text)
 
         new_note = Note(text=note_text, date=date.today().strftime("%B %d, %Y"), user_id=current_user.id)
-        # print(note.date)
         db.session.add(new_note)
         db.session.commit()
-        # print(note.current_user)
 
     return render_template('index.html', user=current_user, img=f'static/img/{img_rand_choice}')
 
 
+'''Login function that only takes 2 users that have already been created:'''
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    # simple WTForm for login.
     form = LoginForm()
     if form.validate_on_submit():
         name = request.form.get('name')
@@ -184,17 +171,16 @@ def login():
         else:
             login_user(user)
             return redirect(url_for('home', user=current_user))
-
-    
+ 
     return render_template('login.html', form=form)
 
-
+'''Logout user using flask-login module'''
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('home'))
 
-
+'''Note Deletion function.'''
 @app.route('/delete/<int:note_id>')
 @login_required
 def delete_note(note_id):
