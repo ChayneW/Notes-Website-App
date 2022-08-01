@@ -199,5 +199,5 @@ def delete_note(note_id):
 
 
 if __name__ == '__main__':
-    # app.run(host='')
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=4999)
+    # app.run(debug=True)
