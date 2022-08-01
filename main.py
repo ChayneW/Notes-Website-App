@@ -69,7 +69,7 @@ class Note(db.Model):
 # master_password_hashed_salted = generate_password_hash(master_password, method='pbkdf2:sha256', salt_length=8)
 # print(master_password_hashed_salted)
 
-# tester_password = 'testtest'
+# tester_password = 
 # tester_password_hashed_salted = generate_password_hash(tester_password, method='pbkdf2:sha256', salt_length=8)
 # print(tester_password_hashed_salted)
 
