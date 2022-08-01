@@ -15,6 +15,7 @@ import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY') 
+
 Bootstrap(app)
 
 uri = os.environ.get('DATABASE_URL')
@@ -23,6 +24,7 @@ if uri.startswith("postgres://"):
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(uri,'sqlite:///user.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 
 
 db = SQLAlchemy(app)
@@ -64,7 +66,8 @@ class Note(db.Model):
 ''' DB creation:'''
 # db.create_all()
 
-# Create User and tester accts and hashing:
+## Create User and tester accts and hashing:
+
 # master_password = 
 # master_password_hashed_salted = generate_password_hash(master_password, method='pbkdf2:sha256', salt_length=8)
 # print(master_password_hashed_salted)
@@ -134,7 +137,14 @@ def home():
 
     # DB check for what's in the DB:
     users_listed = db.session.query(User).all()
-    print(users_listed)
+    notes_listed = db.session.query(Note).all()
+    test_notes = Note.query.filter_by(user_id=2).all()
+    
+    #Data Check:
+    test_notes_count = len(test_notes)
+    print(f"users in db: {users_listed}")
+    print(f"total notes in db: {len(notes_listed)}, {notes_listed}")
+    print(f"tester notes list in db: {test_notes_count}, {test_notes}")
 
     if request.method == 'POST':
         note_text = request.form.get('note')
@@ -143,6 +153,15 @@ def home():
         new_note = Note(text=note_text, date=date.today().strftime("%B %d, %Y"), user_id=current_user.id)
         db.session.add(new_note)
         db.session.commit()
+    
+        if test_notes_count > 5:
+            print(f" in note loop:")
+            for note in test_notes:
+                print('is tester note')
+                post_delete = Note.query.get(note.id)
+                db.session.delete(post_delete)
+                db.session.commit()
+                print('deleting comment')
 
     return render_template('index.html', user=current_user, img=f'static/img/{img_rand_choice}')
 
