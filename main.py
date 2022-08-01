@@ -154,7 +154,7 @@ def home():
         db.session.add(new_note)
         db.session.commit()
     
-        if test_notes_count > 5:
+        if test_notes_count > 9:
             print(f" in note loop:")
             for note in test_notes:
                 print('is tester note')
