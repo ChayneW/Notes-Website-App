@@ -18,7 +18,7 @@ app.config['SECRET_KEY'] = 'dengj159bdy785489rdwiv8ahi'
 Bootstrap(app)
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///user.db'
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('postgres://zxrzzkivanzlrd:011ee3810cdbbc70cad2ee15cbe54052c77fc37b6480e914eabebb20675cd789@ec2-34-203-182-65.compute-1.amazonaws.com:5432/d21q3fdvovvks7','sqlite:///user.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('postgresql://zxrzzkivanzlrd:011ee3810cdbbc70cad2ee15cbe54052c77fc37b6480e914eabebb20675cd789@ec2-34-203-182-65.compute-1.amazonaws.com:5432/d21q3fdvovvks7','sqlite:///user.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
