@@ -1,0 +1,34 @@
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% include 'header.html' %}
+
+<!-- <div class='background-img' style="background-image: url('static/img/japan-neon-gray-unsplash.jpg')"> -->
+    
+  <div class='background-img' style="background-image: url('static/img/jase-bloor-unsplash.jpg')">
+  <!-- <div class='background-img' style="background-image: url('static/img/japan-neon-gray-unsplash.jpg')"> -->
+    <header class='masthead'>
+    <!-- <div class="overlay"> -->
+    <!-- <div class='background-img' style="background-image: url('static/img/japan-neon-gray-unsplash.jpg')"> -->
+      <div class="container">
+        <!-- <header class='masthead'> -->
+        <div class="row">
+          <!-- <div class='background-img' style="background-image: url('static/img/japan-neon-gray-unsplash.jpg')"> -->
+
+            <div class="col-lg-8 col-md-10 mx-auto">
+
+              <h1>Chayne's Notes App</h1>
+              <span class="subheading"> Your notes app to keep you focused!!</span>
+            </div>
+          </div>
+         </div>
+        <!-- </header> -->
+        </div>
+      <!-- </div>  overlay-->
+     </header>
+    
+            <!-- login info here? -->
+      <div class='container login'>
+            {{ wtf.quick_form(form, novalidate=True, button_map={"login": "primary"}) }}
+      </div>
+    
+{% include 'footer.html' %}

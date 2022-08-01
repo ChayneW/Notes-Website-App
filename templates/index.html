@@ -1,0 +1,56 @@
+{% include 'header.html' %}
+
+<!-- <body>
+    <p> This is a Test Text!</p>
+</body> -->
+    
+<!-- <div class='background-img' style="background-image: url('static/img/tianshu-liu-temple-unsplash-copy.jpg')"> -->
+<div class='background-img' style="background-image: url({{img}})">    
+  <header class='masthead'>
+    <!-- THIS IS A TEST TEXT -->
+    <div class="overlay">
+    <!-- <div class='background-img' style="background-image: url('static/img/tianshu-liu-temple-unsplash-copy.jpg')"> -->
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <h1>Chayne's Notes App</h1>
+            <span class="subheading"> Your notes app to keep you focused!!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    </header>
+</div>
+
+<!-- jinja inserts here for actual notes: -->
+<!-- % for note in current_user.notes % -->
+
+{% if current_user.is_authenticated: %} 
+  <h1 align="center">Notes:</h1>
+  <ul class="list-group list-group-flush" id="notes">
+  {% for note in current_user.notes %}
+    <li class="list-group-item"> {{ note.date }}: <br> {{ note.text }} <br> 
+    <a href="{{ url_for('delete_note', note_id=note.id) }}">✘</a></li>
+  {% endfor%}
+  </ul>
+<!-- % endif % -->
+
+<!-- % if current_user.id == 1: % -->
+<!-- % if current_user.is_authenticated: %   -->
+  <div class="container notes"> 
+    <!-- <div class="row">  -->
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <form method="POST">
+          <textarea name='note' id="note" class="form-control"></textarea>
+          <div align="center">
+            <button type="submit" class="btn btn-primary">Add Note</button>
+          </div>
+        </form>
+          <!-- <h1>This is a test!</h1> -->
+      </div>
+    <!-- </div> -->
+ </div>
+{% endif %}
+        
+    <!--Footer -->
+{% include 'footer.html' %}

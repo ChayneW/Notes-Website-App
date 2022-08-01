@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chayne's Notes App</title>
+
+     <!-- Bootstrap core CSS -->
+        <!-- Old link but still usable for when Using Jinja, but not using Jinja -->
+     <!-- <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet"> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+  <script src="https://kit.fontawesome.com/f999473287.js" crossorigin="anonymous"></script>
+  
+  <!-- Personal Styling!!: -->
+  <link href="{{ url_for('static', filename='css/styles.css')}}" rel="stylesheet">
+  
+  <!-- Bootstrap js scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+
+<body>
+    <header class="p-3 text-bg-dark">
+        <div class="container">
+          <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"></a>
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+              
+              <!-- Navigation buttons here: -->
+              <li><a href="{{url_for('home')}}" class="nav-link px-2 text-secondary">Home</a></li>
+              <li><a href="#" class="nav-link px-2 text-white">Empty</a></li>
+              <li><a href="#" class="nav-link px-2 text-white">Empty</a></li>
+            </ul>
+    
+            <!-- USE JINJA TO SHOW SEARCH BAR AFTER LOGGING IN: -->
+            {% if not current_user.is_authenticated: %}
+          
+            <!-- Have JINJA if statement for logout button: -->
+              <div class="text-end">
+                <button type="button" class="btn btn-outline-light me-2"><a href="{{ url_for('login') }}">Login</a></button>
+              <!-- <button type="button" class="btn btn-warning">Sign-up</button> -->
+              </div>
+
+            {% else %}
+              <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+                  <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
+              </form>
+              <button type="button" class="btn btn-info"><a href="{{ url_for('logout') }}">Log Out</a></button>
+            {% endif %}
+          </div>
+        </div>
+      </header>
+</body>
