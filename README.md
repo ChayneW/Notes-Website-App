@@ -1,6 +1,10 @@
 # notes-website-app
 
-Notes taking website that has a tester profile that will allow for notes comments.
+Simple Notes taking website that has a tester profile that will allow for notes comments.
+
+Credentials:
+name = test
+password = testtest
 
 Photo credits:
 unsplash.com
