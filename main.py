@@ -14,7 +14,7 @@ import random
 import os
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'dengj159bdy785489rdwiv8ahi'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY') #'dengj159bdy785489rdwiv8ahi'
 Bootstrap(app)
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///user.db'
